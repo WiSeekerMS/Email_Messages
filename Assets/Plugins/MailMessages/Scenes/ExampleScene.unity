@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122e07678e914be4991d85f5ae734805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mailMessagesConfig: {fileID: 11400000, guid: 1539efa37b8ad594b9640ea967ce79f3, type: 2}
+  _config: {fileID: 11400000, guid: 1539efa37b8ad594b9640ea967ce79f3, type: 2}
 --- !u!4 &297269476
 Transform:
   m_ObjectHideFlags: 0

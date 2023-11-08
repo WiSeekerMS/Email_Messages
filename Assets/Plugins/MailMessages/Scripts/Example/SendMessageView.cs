@@ -1,7 +1,8 @@
+using Plugins.MailMessages.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Plugins.MailMessages.Scripts
+namespace Plugins.MailMessages.Scripts.Example
 {
     public class SendMessageView : MonoBehaviour
     {

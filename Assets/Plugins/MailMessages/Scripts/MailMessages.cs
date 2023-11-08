@@ -1,44 +1,42 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
+using Plugins.MailMessages.Scripts.Data;
+using Plugins.MailMessages.Scripts.Enums;
+using Plugins.MailMessages.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Plugins.MailMessages.Scripts
 {
-    public enum SubmissionStatus
+    public class MailMessages
     {
-        Sent, Error
-    }
-    
-    public abstract class BaseMailMessages : MonoBehaviour
-    {
-        protected MailMessagesConfig _config;
-        
-        public async void SendEmailAsync(string subject, string body, Action<SubmissionStatus> statusAction)
+        public async Task SendEmailAsync(IMailMessagesData data, string subject, string body, 
+            Action<SubmissionStatus> statusAction)
         {
-            if (_config == null)
+            if (data == null)
             {
-                Debug.LogError("There is no link to the config");
+                Debug.LogError("MailMessagesData is null");
                 statusAction?.Invoke(SubmissionStatus.Error);
                 return;
             }
             
             var mail = new MailMessage();
-            var smtpServer = new SmtpClient(_config.Host);
+            var smtpServer = new SmtpClient(data.Host);
 
             try
             {
-                smtpServer.Credentials = new NetworkCredential(_config.Login, _config.Password);
+                smtpServer.Credentials = new NetworkCredential(data.Login, data.Password);
                 smtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpServer.UseDefaultCredentials = false;
-                smtpServer.EnableSsl = _config.EnableSSL;
-                smtpServer.Timeout = _config.Timeout;
-                smtpServer.Port = _config.Port;
+                smtpServer.EnableSsl = data.EnableSSL;
+                smtpServer.Timeout = data.Timeout;
+                smtpServer.Port = data.Port;
 
                 mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-                mail.From = new MailAddress(_config.FromMailAddress);
+                mail.From = new MailAddress(data.FromMailAddress);
 
-                foreach (var toMailAddress in _config.ToMailAddresses)
+                foreach (var toMailAddress in data.ToMailAddresses)
                 {
                     mail.To.Add(new MailAddress(toMailAddress));
                 }

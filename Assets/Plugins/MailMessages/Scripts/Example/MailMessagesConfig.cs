@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Plugins.MailMessages.Scripts.Interfaces;
+using UnityEngine;
 
-namespace Plugins.MailMessages.Scripts
+namespace Plugins.MailMessages.Scripts.Example
 {
     [CreateAssetMenu(menuName = "Configs/MailMessagesConfig", fileName = "MailMessagesConfig")]
-    public class MailMessagesConfig : ScriptableObject
+    public class MailMessagesConfig : ScriptableObject, IMailMessagesData
     {
         [Header("Authorization")] 
         [SerializeField] private string _login;
